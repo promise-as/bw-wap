@@ -30,31 +30,17 @@ select {
     font-size: inherit;
   }
 }
-$browser-default-font-size: 75px !default;
-@function pr($px) {
-  @return $px / $browser-default-font-size * 1rem;
+%clearfix {
+  zoom: 1;
+  &:after {
+    clear: both;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
 }
-$active-color: #00a8ff;
-$padding: pr(30px);
-// 垂直居中，两端对齐
-.space-between {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-// 垂直居中，居中
-.center {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-p {
-  line-height: 1.5;
-}
-
 %in-b {
   display: inline-block;
   *zoom: 1;
@@ -66,293 +52,322 @@ a {
     color: $active-color;
   }
 }
-
-%one {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 .point {
   &::before {
     @extend %in-b;
     content: "";
-    width: pr(4px);
-    height: pr(4px);
-    margin-right: pr(5px);
+    width: 4px;
+    height: 4px;
+    margin-right: 5px;
     background: $active-color;
     border-radius: 50%;
     vertical-align: middle;
   }
 }
-
+.wrap {
+  width: 1200px;
+  margin: 0 auto;
+}
 body {
+  font-size: 14px;
+  color: #333;
   background-color: #f2f2f2;
 }
-
-.wrap {
-  width: pr(750px);
-  margin: 0 auto;
-  font-size: pr(24px);
-  font-family: "Microsoft Yahei";
-}
-
 .head {
-  height: pr(88px);
-  padding: 0 pr(20px);
-  @extend .space-between;
-  .logo {
-    width: pr(135px);
-  }
-  .dropdown {
-    position: relative;
-    .d-btn {
-      width: pr(27px);
-      cursor: pointer;
+  height: 82px;
+  .h-l {
+    float: left;
+    .logo,
+    .nav {
+      float: left;
+    }
+    .logo {
+      padding: 23px 0 22px;
     }
     .nav {
-      display: none;
-      position: absolute;
-      top: pr(44px);
-      right: 0;
-      width: pr(150px);
-      background-color: #333333;
-      border-radius: pr(10px);
-      &::before {
-        position: absolute;
-        top: pr(-14px);
-        right: pr(17px);
-        content: "";
-        width: 0;
-        height: 0;
-        border-left: pr(13px) solid transparent;
-        border-right: pr(13px) solid transparent;
-        border-bottom: pr(13px) solid #333333;
-      }
+      padding: 25px 0 0 60px;
+    }
+    ul {
+      @extend %clearfix;
       li {
-        border-bottom: 1px solid #444;
-        &:last-child {
-          border-bottom: 0;
+        position: relative;
+        float: left;
+        margin-right: 90px;
+        line-height: 30px;
+        font-size: 16px;
+        &.on {
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #163d8d;
+            border-radius: 2px;
+          }
+          a {
+            font-weight: bold;
+            color: #163d8d;
+          }
         }
-      }
-      a {
-        display: block;
-        padding: 0 pr(26px);
-        line-height: pr(62px);
-        color: #fff;
+        a {
+          padding: 0 1px;
+          color: #666666;
+          &:hover {
+            font-weight: bold;
+            color: #163d8d;
+          }
+        }
       }
     }
   }
-}
-
-.banner {
-  a {
-    display: block;
+  .h-r {
+    float: right;
+    padding-top: 30px;
+    .tel {
+      display: block;
+      padding-left: 34px;
+      line-height: 23px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: #163d8d;
+      background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/tel.png) no-repeat left center;
+    }
+  }
+  .dropdown {
+    display: none;
   }
 }
-
 .title {
   position: relative;
-  margin-bottom: pr(15px);
-  line-height: pr(40px);
-  font-size: pr(40px);
+  margin-bottom: 15px;
+  line-height: 36px;
+  font-size: 36px;
   font-weight: bold;
   text-align: center;
   &::after {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: pr(-18px);
+    bottom: -15px;
     margin: auto;
     content: "";
-    width: pr(28px);
-    height: pr(5px);
+    width: 28px;
+    height: 5px;
+
     background-color: $active-color;
-    border-radius: pr(3px);
+    border-radius: 3px;
   }
 }
-
 .subtitle {
-  padding-top: pr(15px);
-  line-height: pr(24px);
+  padding-top: 8px;
+  line-height: 16px;
+  font-size: 16px;
   color: #999999;
   text-align: center;
 }
-
 .btn {
-  display: block;
-  width: 100%;
-  height: pr(88px);
-  line-height: pr(88px);
-  font-size: pr(32px);
-  background-color: $active-color;
-  box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-  border-radius: pr(44px);
+  @extend %in-b;
+  height: 42px;
+  line-height: 42px;
+  box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+  border-radius: 22px;
   border: solid 1px $active-color;
-  color: #fefefe;
+  color: $active-color;
   text-align: center;
-}
-
-.plan {
-  // display: none;
-  padding: pr(70px) 0;
-  .p-cont {
-    @extend .space-between;
-    padding: pr(40px) $padding;
+  font-size: 16px;
+  &.w250 {
+    display: block;
+    width: 248px;
+    margin: 0 auto;
+    background: $active-color;
+    color: #fff;
   }
-  .item {
-    width: 42%;
-    padding: pr(30px) pr(23px);
-    margin-bottom: pr(20px);
-    background-color: #ffffff;
-    border-radius: pr(10px);
-    text-align: center;
-    img {
-      width: pr(100px);
-      height: pr(100px);
-      background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#163d8d, #163d8d);
-      background-blend-mode: normal, normal;
-      box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
-      border-radius: 50%;
-    }
-    .name {
-      padding: pr(20px) 0;
-      font-size: pr(32px);
-      line-height: pr(32px);
-      font-weight: bold;
-    }
-    p {
-      color: #666666;
-    }
-    .btn {
-      width: pr(260px);
-      margin: pr(20px) auto 0;
-    }
-  }
-  .btn {
-    height: pr(56px);
-    line-height: pr(56px);
-    border-radius: pr(28px);
-  }
-}
-
-.sign-in {
-  select,
-  input {
-    height: pr(88px);
-    line-height: pr(88px);
-    margin-bottom: pr(30px);
-    font-size: pr(28px);
-    border-radius: pr(4px);
-    border: solid 1px #eeeeee;
-  }
-  select {
-    padding: 0 1em;
-    color: #666666;
-    background: url(../images/down.png) no-repeat #fafafa 94%;
-    background-size: pr(25px) pr(15px);
-  }
-  .btn {
-    font-size: pr(32px);
-    background-color: $active-color;
-    border-radius: pr(44px);
+  &:hover {
+    background: $active-color;
     color: #fff;
   }
 }
-
-.test {
-  display: none;
-  padding: pr(100px) $padding pr(60px);
-  background: url(../images/bg_1.png) no-repeat center;
-  .t-l,
-  .t-r {
+.plan {
+  padding: 80px 0;
+  .p-cont {
+    @extend %clearfix;
+    padding-top: 90px;
+    margin-right: -20px;
+  }
+  .item {
     position: relative;
+    float: left;
+    width: 232px;
+    height: 224px;
+    margin-right: 20px;
+    padding: 86px 26px 0;
     background-color: #ffffff;
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-    border-radius: pr(10px);
+    border-radius: 10px;
+    text-align: center;
+    img {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#163d8d, #163d8d);
+      background-blend-mode: normal, normal;
+      box-shadow: 0px 10px 40px 0px rgba(0, 37, 138, 0.1);
+      border-radius: 50%;
+    }
+    .name {
+      margin-bottom: 14px;
+      line-height: 26px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333333;
+    }
+    p {
+      line-height: 21px;
+      color: #666666;
+    }
+    .btn {
+      width: 100%;
+      margin-top: 30px;
+    }
+  }
+}
+.sign-in {
+  @extend %clearfix;
+  font-size: 14px;
+  select,
+  input {
+    float: left;
+    height: 42px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: solid 1px #eeeeee;
+  }
+  select {
+    width: 250px;
+    padding: 0 1em;
+    color: #666666;
+    background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/down.png) no-repeat #fafafa 94%;
+    option {
+      color: #333;
+    }
+  }
+  input {
+    width: 248px;
+  }
+  .btn {
+    // width: 100%;
+    height: 44px;
+    line-height: 42px;
+    background-color: $active-color;
+    border-radius: 22px;
+    color: #fff;
+    font-size: 16px;
+  }
+}
+.test {
+  padding: 110px 0 80px;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_1.png) no-repeat center;
+  .t-cont {
+    @extend %clearfix;
+    height: 350px;
+  }
+  .c-l,
+  .c-r {
+    position: relative;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+    border-radius: 10px;
   }
   .t-title {
     position: absolute;
-    top: pr(-30px);
+    top: -30px;
     left: 0;
     right: 0;
     margin: auto;
-    height: pr(78px);
-    line-height: pr(78px);
-    font-size: pr(32px);
     font-weight: bold;
+    font-size: 20px;
     color: #ffffff;
     background-blend-mode: normal, normal;
-    box-shadow: 0px pr(10px) pr(30px) 0px rgba(0, 10, 39, 0.1);
-    border-radius: pr(10px) pr(10px) 0px 0px;
+    box-shadow: 0px 10px 30px 0px rgba(0, 10, 39, 0.1);
+    border-radius: 10px 10px 0px 0px;
     text-align: center;
-    background: url(../images/bg_2.png) no-repeat;
   }
-  .t-l {
-    margin-bottom: pr(80px);
+  .c-l {
+    float: left;
+    width: 530px;
     .t-title {
-      width: pr(370px);
+      width: 290px;
+      height: 78px;
+      line-height: 78px;
+      background: url(../images/bg_2.png) no-repeat;
     }
   }
-  .t-r {
+  .c-r {
+    float: right;
+    width: 650px;
     .t-title {
-      width: pr(470px);
-    }
-    .t-small {
-      padding-top: pr(58px);
-      color: #999999;
-      text-align: center;
+      width: 370px;
+      height: 62px;
+      padding-top: 16px;
+      line-height: 26px;
+      background: url(../images/bg_2.png) no-repeat;
+      .t-small {
+        font-size: 14px;
+        font-weight: normal;
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
     .r-row {
-      margin-bottom: pr(30px);
+      @extend %clearfix;
+      padding: 0 60px 0 70px;
+      margin-bottom: 20px;
       p {
-        margin-bottom: pr(25px);
-        font-size: pr(28px);
+        margin-bottom: 10px;
+        line-height: 21px;
+        font-size: 16px;
         font-weight: bold;
       }
       span {
-        padding-left: pr(29px);
-        margin-right: pr(8px);
-        line-height: pr(24px);
+        padding-left: 24px;
+        margin-right: 28px;
         color: #666666;
         cursor: pointer;
-        background: url(../images/nor.png) no-repeat left;
-        background-size: pr(20px);
+        background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/nor.png) no-repeat left;
         &.on {
-          background: url(../images/sel.png) no-repeat left;
-          background-size: pr(20px);
+          background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/sel.png) no-repeat left;
         }
       }
     }
     .sign-in {
-      padding: $padding $padding pr(10px);
-      select,
-      input {
-        width: 100%;
-      }
+      padding-top: 80px;
     }
   }
   .l-detail {
-    padding: pr(70px) pr(36px) pr(20px);
+    padding-top: 80px;
   }
   .d-item {
+    @extend %clearfix;
+    padding: 0 56px 10px 66px;
     p {
-      margin-bottom: pr(10px);
-      font-size: pr(28px);
+      margin-bottom: 14px;
+      line-height: 21px;
+      font-size: 16px;
       font-weight: bold;
     }
-    .i-type {
-      @extend .space-between;
-    }
     a {
-      width: pr(140px);
-      height: pr(48px);
-      line-height: pr(48px);
-      margin-bottom: pr(18px);
-      border-radius: pr(4px);
-      border: solid 1px $active-color;
+      float: left;
+      width: 90px;
+      height: 30px;
+      line-height: 30px;
+      margin: 0 10px 8px 0;
+      border-radius: 4px;
+      border: solid 1px #dddddd;
       text-align: center;
-      color: $active-color;
+      color: #999;
       cursor: pointer;
       &:hover {
         border: solid 1px $active-color;
@@ -365,36 +380,38 @@ body {
     width: 100%;
   }
 }
-
 .college {
-  display: none;
-  padding: pr(80px) $padding;
+  padding: 80px 0;
   ul {
-    @extend .space-between;
-    padding: pr(40px) 0 $padding;
+    @extend %clearfix;
+    padding-top: 40px;
+    margin-right: -20px;
   }
   li {
-    width: pr(335px);
+    float: left;
+    width: 224px;
+    margin: 0 20px 20px 0;
     a {
       display: block;
     }
     img {
-      border-radius: pr(10px);
+      border-radius: 10px;
     }
     .name {
-      padding: pr(20px) 0;
-      font-size: pr(32px);
-      line-height: pr(32px);
+      padding: 12px 0 12px;
+      line-height: 20px;
+      font-size: 20px;
       font-weight: bold;
     }
   }
 }
-
 .major {
-  display: none;
-  padding: pr(70px) $padding 0;
-  background: url(../images/bg_3.png) no-repeat top;
-  background-size: 100% auto;
+  position: relative;
+  padding: 110px 0 80px;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_3.png) no-repeat center;
+  &.has-form {
+    margin-bottom: 60px;
+  }
   .title {
     color: #fff;
   }
@@ -402,15 +419,17 @@ body {
     color: rgba(255, 255, 255, 0.6);
   }
   ul {
-    @extend .space-between;
-    padding: pr(38px) 0 pr(24px);
+    @extend %clearfix;
+    padding: 40px 0 20px;
+    margin-right: -20px;
   }
   li {
-    width: pr(335px);
-    height: pr(120px);
-    line-height: pr(120px);
-    margin-bottom: pr(20px);
-    font-size: pr(32px);
+    float: left;
+    width: 224px;
+    height: 60px;
+    margin: 0 20px 20px 0;
+    line-height: 60px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     a {
@@ -431,146 +450,265 @@ body {
         background-blend-mode: normal, normal;
         box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
         &::before {
-          display: inline-block;
+          @extend %in-b;
           content: "";
-          width: pr(26px);
-          height: pr(31px);
-          margin-right: pr(6px);
-          margin-bottom: pr(-3px);
-          background: url(../images/hot.png) no-repeat left center;
-          background-size: 100% 100%;
+          width: 18px;
+          height: 20px;
+          margin-right: 6px;
+          margin-bottom: -3px;
+          background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/hot.png) no-repeat left
+            center;
         }
       }
     }
   }
   .sign-in {
-    padding: pr(40px) pr(25px) pr(7px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -60px;
+    margin: auto;
+    width: 845px;
+    height: 82px;
+    padding: 38px 0 0 55px;
     background-color: #ffffff;
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-    border-radius: pr(10px);
+    box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+    border-radius: 10px;
     input {
-      width: 100%;
+      margin-right: 20px;
     }
   }
 }
-
 .course {
-  display: none;
-  padding: pr(80px) $padding pr(60px);
+  padding: 80px 0 60px;
   ul {
-    @extend .space-between;
-    padding-top: pr(40px);
+    @extend %clearfix;
+    padding-top: 40px;
+    margin-right: -20px;
   }
   li {
-    width: pr(335px);
+    float: left;
+    width: 285px;
+    margin: 0 20px 20px 0;
     a {
       display: block;
     }
   }
   .name {
-    height: pr(62px);
-    line-height: pr(62px);
-    padding-left: pr(13px);
-    margin-bottom: pr(20px);
+    height: 60px;
+    padding-left: 19px;
+    line-height: 60px;
     font-weight: bold;
+    font-size: 16px;
     background: #fff;
   }
 }
-
 .consult {
-  // display: none;
-  padding: pr(360px) $padding pr(50px);
-  background: url(../images/bg_4.png) no-repeat top;
-  background-size: 100% auto;
+  padding: 40px 0;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_4.png) no-repeat center;
+  .c-cont {
+    @extend %clearfix;
+  }
   .sign-in {
-    padding: pr(40px) pr(25px) pr(10px);
+    float: right;
+    width: 550px;
+    padding: 36px 0 16px 30px;
     background-color: #ffffff;
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-    border-radius: pr(10px);
+    box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+    border-radius: 10px;
     input,
     select {
-      width: 100%;
-      margin-bottom: pr(30px);
+      margin: 0 20px 20px 0;
     }
   }
 }
-
 .article {
-  padding: pr(70px) $padding;
+  padding: 80px 0 45px;
   .title {
-    margin-bottom: pr(42px);
+    margin-bottom: 42px;
     &::after {
       display: none;
     }
   }
   .a-cont {
-    padding: pr(40px) pr(30px);
+    padding-bottom: 30px;
     background-color: #ffffff;
-    border-radius: pr(10px);
+    border-radius: 10px;
   }
   ul {
-    margin-bottom: pr(20px);
+    @extend %clearfix;
+    padding: 40px 0 30px 40px;
   }
   li {
-    @extend .space-between;
-    font-size: pr(28px);
-    line-height: pr(58px);
-    a {
-      width: 86%;
+    float: left;
+    width: 530px;
+    margin-right: 50px;
+    line-height: 40px;
+    font-size: 14px;
+    a{
       @extend .point;
-      @extend %one;
     }
     .time {
+      float: right;
       color: #999999;
     }
   }
+  .btn {
+    display: block;
+    margin: 0 auto;
+    width: 250px;
+    background: $active-color;
+    color: #fff;
+    font-size: 16px;
+  }
 }
-
 .copyright {
-  padding: pr(22px) 0;
+  height: 80px;
   background-color: #333333;
   p {
-    line-height: pr(30px);
-    font-size: pr(20px);
-    color: #fff;
+    line-height: 80px;
+    color: #666666;
     text-align: center;
   }
   a {
-    color: #fff;
+    color: #666666;
     &:hover {
       color: $active-color;
     }
   }
 }
 
-// list页面
-.list {
-  // display: none;
-  padding: 0 $padding;
-  li {
-    padding: pr(40px) 0;
-    border-bottom: 1px solid #dddddd;
-  }
-  .l-q {
-    margin-bottom: pr(20px);
-    font-size: pr(28px);
-    line-height: pr(34px);
-    @extend .point;
-    &::before {
-      margin-right: pr(10px);
-    }
-  }
-  p {
-    margin-bottom: pr(20px);
-    text-align: justify;
-    color: #666666;
-  }
-  .time {
-    font-size: pr(20px);
-    color: #999999;
+// 深蓝色按钮
+.deepblue-btn {
+  height: 44px;
+  line-height: 44px;
+  background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#0064af, #0064af);
+  background-blend-mode: normal, normal;
+  box-shadow: 0px 10px 40px 0px rgba(0, 37, 138, 0.1);
+  border-radius: 22px;
+  color: #fff;
+  text-align: center;
+  &:hover {
+    color: #fff;
   }
 }
-
+// list页面
+.list {
+  @extend %clearfix;
+  .list-l {
+    float: left;
+    width: 788px;
+    padding-top: 4px;
+    li {
+      height: 140px;
+      padding-top: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .l-q {
+      font-size: 18px;
+      line-height: 34px;
+      @extend .point;
+      .time {
+        float: right;
+        font-size: 14px;
+        color: #999999;
+      }
+    }
+    p {
+      padding: 14px 0 20px;
+      font-size: 14px;
+      color: #666666;
+    }
+  }
+  .list-r {
+    float: right;
+    width: 390px;
+    padding-top: 30px;
+    .r-apply {
+      top: 0;
+      width: 350px;
+      padding: 24px 20px 20px;
+      margin-bottom: 20px;
+      background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/f.png) no-repeat;
+    }
+    .sign-in {
+      padding: 20px 20px 5px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      select,
+      input {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      input[type="submit"] {
+        border-radius: 22px;
+        color: #fff;
+      }
+    }
+    .a-title {
+      margin-bottom: 10px;
+      line-height: 24px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .a-subtitle {
+      margin-bottom: 20px;
+      color: #999999;
+      text-align: center;
+    }
+    .apply-size {
+      display: none;
+      height: 508px;
+    }
+    .r-gain {
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      ul {
+        @extend %clearfix;
+        margin-bottom: 10px;
+        margin-right: -10px;
+      }
+      li {
+        float: left;
+        width: 170px;
+        height: 84px;
+        padding-top: 16px;
+        margin: 0 10px 10px 0;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        text-align: center;
+      }
+      img {
+        box-shadow: 0px 10px 40px 0px rgba(0, 37, 138, 0.1);
+      }
+      .text {
+        line-height: 30px;
+      }
+      .deepblue-btn {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+/*面包屑*/
+.page-path {
+  line-height: 50px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #eee;
+  a {
+    color: #999;
+    &:hover {
+      color: $active-color;
+    }
+  }
+}
 /*分页*/
 .page-wrap {
   width: 100%;
@@ -583,8 +721,8 @@ body {
   display: flex;
   flex-direction: row;
   .page {
-    margin: pr(30px) auto;
-    line-height: pr(34px);
+    margin: 30px auto;
+    line-height: 34px;
     -webkit-box-pack: center;
     box-pack: center;
     -webkit-justify-content: center;
@@ -592,27 +730,27 @@ body {
     width: 555px\9\0;
     *width: 555px;
     *text-align: center;
-    *margin-top: pr(10px);
+    *margin-top: 10px;
     a {
       color: #666;
       display: block;
       float: left;
-      width: pr(42px);
-      height: pr(42px);
-      line-height: pr(42px);
+      width: 32px;
+      height: 32px;
       text-align: center;
+      line-height: 32px;
       background: #fff;
-      margin-right: pr(10px);
+      margin-right: 10px;
       border: 1px solid #ddd;
-      border-radius: pr(4px);
+      border-radius: 4px;
       &.first,
       &.end {
-        width: pr(62px);
+        width: 62px;
         background: #eee;
       }
       &.next,
       &.prev {
-        width: pr(90px);
+        width: 90px;
         background: #eee;
       }
       &.cur,
@@ -625,63 +763,18 @@ body {
     span {
       display: block;
       float: left;
-      width: pr(32px);
-      height: pr(32px);
-      line-height: pr(25px);
+      width: 32px;
+      height: 32px;
+      line-height: 25px;
       color: #212b4c;
-      margin-left: pr(-10px);
+      margin-left: -10px;
       &.total {
         width: auto;
-        line-height: pr(34px);
-        margin-right: pr(10px);
+        line-height: 34px;
+        margin-right: 10px;
         color: #666;
       }
     }
-  }
-}
-
-.apply {
-  // display: none;
-  padding: $padding;
-  background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#163d8e, #163d8e);
-  background-blend-mode: normal, normal;
-  box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
-  .subtitle {
-    margin-bottom: pr(50px);
-  }
-  .sign-in {
-    padding: pr(36px) pr(25px) pr(10px);
-    background-color: #ffffff;
-    border-radius: pr(10px);
-    select,
-    input {
-      width: 100%;
-    }
-  }
-}
-
-.gain {
-  padding: pr(40px) $padding pr(40px);
-  ul {
-    @extend .space-between;
-    padding: pr(20px);
-    background: #fff;
-    border-radius: pr(10px);
-  }
-  li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: pr(315px);
-    height: pr(215px);
-    margin-bottom: pr(20px);
-    font-size: pr(28px);
-    background-color: #f5f5f5;
-    border-radius: pr(10px);
-  }
-  img {
-    height: pr(88px);
   }
 }
 
@@ -692,87 +785,108 @@ body {
   }
 }
 .upgrade {
-  display: none;
-  padding: pr(70px) $padding pr(60px);
+  padding: 28px 0 80px;
+  margin-bottom: 20px;
   .u-cont {
-    @extend .space-between;
+    position: relative;
+    height: 260px;
+    margin: 30px 0 20px;
   }
   .item {
-    width: pr(335px);
-    padding: pr(22px);
-    box-sizing: border-box;
-    margin-bottom: pr(20px);
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(51, 51, 51, 0.1);
-    border-radius: pr(10px);
-    background-color: #ffffff;
+    position: absolute;
+    width: 484px;
+    height: 100px;
+    padding: 20px 38px 0;
+    box-shadow: 0px 10px 60px 0px rgba(51, 51, 51, 0.1);
+    background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/up_1.png) no-repeat;
     .i-title {
-      margin-bottom: pr(10px);
-      font-size: pr(32px);
-      line-height: pr(32px);
+      margin-bottom: 10px;
+      line-height: 26px;
+      font-size: 20px;
       font-weight: bold;
-      background: url(../images/up_1.png) no-repeat right;
-      background-size: auto 100%;
     }
     p {
-      text-align: justify;
+      line-height: 21px;
       color: #666666;
     }
     &:nth-of-type(2) {
-      .i-title {
-        background: url(../images/up_2.png) no-repeat right;
-        background-size: auto 100%;
-      }
+      right: 0;
+      background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/up_2.png) no-repeat;
+      text-align: right;
     }
     &:nth-of-type(3) {
-      .i-title {
-        background: url(../images/up_3.png) no-repeat right;
-        background-size: auto 100%;
-      }
+      bottom: 0;
+      background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/up_3.png) no-repeat;
     }
     &:nth-of-type(4) {
-      .i-title {
-        background: url(../images/up_4.png) no-repeat right;
-        background-size: auto 100%;
-      }
+      right: 0;
+      bottom: 0;
+      background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/up_4.png) no-repeat;
+      text-align: right;
     }
   }
+  .c-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 160px;
+    height: 160px;
+    background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#ffffff, #ffffff);
+    background-blend-mode: normal, normal;
+    box-shadow: 0px 10px 40px 0px rgba(0, 37, 138, 0.1);
+    border-radius: 50%;
+  }
   .u-edu {
-    padding: pr(25px);
+    padding: 36px 0 36px 20px;
     background-color: #ffffff;
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-    border-radius: pr(10px);
+    box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+    border-radius: 10px;
     .e-title {
-      margin-bottom: pr(40px);
-      font-size: pr(40px);
-      line-height: pr(40px);
+      margin-bottom: 20px;
+      line-height: 24px;
+      font-size: 24px;
       font-weight: bold;
       text-align: center;
     }
     select,
     input {
-      width: 100%;
+      width: 188px;
+    }
+    .deepblue-btn {
+      width: 174px;
+      margin-right: 0;
+      border-radius: 22px;
     }
   }
 }
 .use {
-  display: none;
-  padding: pr(42px) $padding $padding;
-  background: url(../images/bg_5.png) no-repeat center;
+  padding: 66px 0 50px;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_5.png) no-repeat center;
+  .use-cont {
+    @extend %clearfix;
+  }
   ul {
-    @extend .space-between;
+    float: right;
+    width: 50%;
   }
   li {
-    width: 50%;
-    margin-bottom: pr(10px);
-    line-height: pr(48px);
+    float: left;
+    width: 47%;
+    padding-left: 3%;
+    margin-bottom: 18px;
+    line-height: 38px;
+    font-size: 16px;
     color: #ffffff;
     a {
       @extend %in-b;
-      width: pr(112px);
-      height: pr(46px);
-      line-height: pr(46px);
-      margin-right: pr(10px);
-      border-radius: pr(4px);
+      width: 104px;
+      height: 36px;
+      margin-right: 20px;
+      line-height: 36px;
+      border-radius: 4px;
       border: solid 1px #fed750;
       color: #fed750;
       text-align: center;
@@ -784,69 +898,495 @@ body {
   }
 }
 .scheme {
-  display: none;
-  padding: pr(70px) $padding;
+  padding: 80px 0;
   .s-cont {
-    @extend .space-between;
-    padding: pr(40px) pr(10px) pr(10px);
+    padding: 40px 0 30px;
     text-align: center;
   }
   .item {
-    width: pr(198px);
-    height: pr(138px);
-    padding-top: pr(60px);
-    margin-bottom: $padding;
-    font-size: pr(30px);
-    line-height: pr(36px);
+    @extend %in-b;
+    width: 158px;
+    height: 108px;
+    padding-top: 50px;
+    margin: 0 10px;
+    line-height: 26px;
     background-color: #e5eeff;
     border: solid 1px #163d8d;
+    font-size: 20px;
     font-weight: bold;
     color: #163d8d;
     border-radius: 50%;
     &:hover {
       background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#e5eeff, #e5eeff);
       background-blend-mode: normal, normal;
-      box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
+      box-shadow: 0px 10px 40px 0px rgba(0, 37, 138, 0.1);
       color: #fff;
     }
   }
 }
-.noform {
-  padding: pr(70px) $padding pr(40px);
-}
 .data {
-  display: none;
-  padding: pr(230px) $padding pr(40px);
-  background: url(../images/bg_6.png) no-repeat top #163d8d;
-  background-size: 100% auto;
+  height: 540px;
+  @extend %clearfix;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_6.png) no-repeat left;
   .d-l {
-    padding: 0 pr(146px);
-    ul {
-      @extend .space-between;
-    }
+    float: left;
+    width: 182px;
+    padding: 200px 0 0 30px;
     li {
-      width: 50%;
-      line-height: pr(40px);
+      line-height: 40px;
+      font-size: 16px;
       color: #ffffff;
       @extend .point;
-      text-align: center;
-      &::before {
-        margin-right: pr(10px);
-      }
     }
   }
   .d-r {
-    padding-top: pr(48px);
+    float: left;
+    width: 988px;
+    padding-top: 48px;
     .item {
+      float: left;
       position: relative;
-      padding: pr(78px) pr(30px) pr(20px);
-      margin-bottom: pr(30px);
+      width: 392px;
+      padding: 78px 49px 0 39px;
+      margin-bottom: 20px;
       background-color: #ffffff;
+      box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+      border-radius: 10px;
+      &:nth-of-type(2) {
+        float: right;
+      }
+    }
+    .t-title {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      font-weight: bold;
+      font-size: 20px;
+      color: #ffffff;
+      background-blend-mode: normal, normal;
+      box-shadow: 0px 10px 30px 0px rgba(0, 10, 39, 0.1);
+      border-radius: 10px 10px 0px 0px;
+      text-align: center;
+      width: 290px;
+      height: 78px;
+      line-height: 78px;
+      background: url(../images/bg_2.png) no-repeat;
+    }
+    li {
+      line-height: 22px;
+      margin-bottom: 22px;
+      .txt {
+        @extend %in-b;
+        width: 88%;
+        @extend .point;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        &::before {
+          background: #999;
+        }
+      }
+      .btn {
+        float: right;
+        height: 20px;
+        padding: 0 5px;
+        line-height: 20px;
+        font-size: 14px;
+        border-radius: 11px;
+      }
+    }
+    .sign-in {
+      clear: both;
+      padding: 28px 0 28px 39px;
+      background-color: #ffffff;
+      box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+      border-radius: 10px;
+      input {
+        width: 330px;
+        margin-right: 14px;
+      }
+      .btn {
+        width: 215px;
+      }
+    }
+  }
+}
+.question {
+  padding-top: 80px;
+  ul {
+    @extend %clearfix;
+    padding: 30px 0 22px;
+    margin-right: -18px;
+  }
+  li {
+    float: left;
+    margin: 0 18px 18px 0;
+    a {
+      display: block;
+      width: 385px;
+      line-height: 58px;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #ebf8ff;
+      border-radius: 10px;
+      border: solid 1px #00a8ff;
+      text-align: center;
+    }
+  }
+}
+.article2 {
+  .a-cont {
+    background: transparent;
+    ul {
+      padding: 0 0 20px 0;
+      margin-right: -20px;
+    }
+    li {
+      width: 530px;
+      padding: 0 30px;
+      line-height: 80px;
+      margin: 0 20px 20px 0;
+      background-color: #ffffff;
+      border-radius: 10px;
+    }
+  }
+}
+.tutorium {
+  padding: 40px 30px 30px;
+  margin-bottom: 56px;
+  background: $active-color;
+  border-radius: 10px;
+  .title {
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  .t-cont {
+    padding: 32px 28px;
+    line-height: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+}
+// 侧边导航
+.side-nav {
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  right: 10%;
+  width: 100px;
+  background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/side-nav.png) no-repeat;
+  padding: 34px 10px 50px;
+  .close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  a {
+    display: block;
+    height: 40px;
+    margin-bottom: 6px;
+    line-height: 40px;
+    font-size: 16px;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    color: #00b4ff;
+    &:hover {
+      background-color: #fed750;
+    }
+  }
+  .wx {
+    &:hover {
+      & + .wx-qr {
+        display: block;
+      }
+    }
+  }
+  .wx-qr {
+    display: none;
+    position: absolute;
+    top: 226px;
+    left: -126px;
+    width: 100px;
+    height: 100px;
+    padding: 8px 15px 8px 8px;
+    background: url(https://img.thea.cn/public/platform/thea/202011/hbj/bw-edu/images/bg_7.png) no-repeat;
+  }
+  .black-to-top {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    height: 45px;
+    cursor: pointer;
+  }
+}
+.pc {
+  display: block;
+}
+.wap {
+  display: none;
+}
+@media screen and (max-width: 750px) {
+  .pc {
+    display: none;
+  }
+  .wap {
+    display: block;
+  }
+  body,
+  div,
+  form,
+  a {
+    box-sizing: border-box;
+  }
+  // 去除前后伪类
+  %flex {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+  $browser-default-font-size: 75px !default;
+  @function pr($px) {
+    @return $px / $browser-default-font-size * 1rem;
+  }
+  $active-color: #00a8ff;
+  $padding: pr(30px);
+  // 垂直居中，两端对齐
+  .space-between {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  // 垂直居中，居中
+  .center {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  p {
+    line-height: 1.5;
+  }
+  $active-color: #00a8ff;
+  %one {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .point-wap {
+    &::before {
+      display: inline-block;
+      content: "";
+      width: pr(4px);
+      height: pr(4px);
+      margin-right: pr(5px);
+      background: $active-color;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  }
+  body {
+    background-color: #f2f2f2;
+  }
+  .wrap {
+    width: pr(750px);
+    font-size: pr(24px);
+  }
+  .head {
+    height: pr(88px);
+    @extend .space-between;
+    .h-l {
+      margin-left: $padding;
+      .logo {
+        width: pr(135px);
+        padding: 0;
+      }
+      .nav {
+        display: none;
+      }
+    }
+    .h-r {
+      display: none;
+    }
+
+    .dropdown {
+      display: block;
+      position: relative;
+      margin-right: $padding;
+      .d-btn {
+        width: pr(27px);
+        cursor: pointer;
+      }
+      .nav {
+        display: none;
+        position: absolute;
+        top: pr(44px);
+        right: 0;
+        width: pr(150px);
+        background-color: #333333;
+        border-radius: pr(10px);
+        &.on {
+          display: block;
+        }
+        &::before {
+          position: absolute;
+          top: pr(-14px);
+          right: pr(17px);
+          content: "";
+          width: 0;
+          height: 0;
+          border-left: pr(13px) solid transparent;
+          border-right: pr(13px) solid transparent;
+          border-bottom: pr(13px) solid #333333;
+        }
+        li {
+          border-bottom: 1px solid #444;
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+        a {
+          display: block;
+          padding: 0 pr(26px);
+          line-height: pr(62px);
+          color: #fff;
+        }
+      }
+    }
+  }
+  .title {
+    margin-bottom: pr(15px);
+    line-height: pr(40px);
+    font-size: pr(40px);
+    &::after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: pr(-18px);
+      margin: auto;
+      content: "";
+      width: pr(28px);
+      height: pr(5px);
+      background-color: $active-color;
+      border-radius: pr(3px);
+    }
+  }
+  .subtitle {
+    padding-top: pr(15px);
+    line-height: pr(24px);
+    color: #999999;
+    text-align: center;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    height: pr(88px);
+    line-height: pr(88px);
+    font-size: pr(32px);
+    background-color: $active-color;
+    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+    border-radius: pr(44px);
+    border: solid 1px $active-color;
+    color: #fefefe;
+    text-align: center;
+    &.w250 {
+      width: 100%;
+    }
+  }
+  .plan {
+    padding: pr(70px) 0;
+    .p-cont {
+      @extend %flex;
+      @extend .space-between;
+      padding: pr(40px) $padding;
+      margin-right: 0;
+    }
+    .item {
+      position: initial;
+      float: none;
+      width: pr(335px);
+      height: auto;
+      padding: pr(30px) pr(23px);
+      margin-right: 0;
+      margin-bottom: pr(20px);
+      background-color: #ffffff;
+      border-radius: pr(10px);
+      text-align: center;
+      img {
+        width: pr(100px);
+        height: pr(100px);
+        background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#163d8d, #163d8d);
+        background-blend-mode: normal, normal;
+        box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
+        border-radius: 50%;
+      }
+      .name {
+        padding: pr(20px) 0;
+        font-size: pr(32px);
+        line-height: pr(32px);
+        font-weight: bold;
+      }
+      p {
+        color: #666666;
+      }
+      .btn {
+        width: pr(260px);
+        margin: pr(20px) auto 0;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+    .btn {
+      height: pr(56px);
+      line-height: pr(56px);
+      border-radius: pr(28px);
+    }
+  }
+  .sign-in {
+    select,
+    input {
+      height: pr(88px);
+      line-height: pr(88px);
+      margin-bottom: pr(30px);
+      font-size: pr(28px);
+      border-radius: pr(4px);
+      border: solid 1px #eeeeee;
+    }
+    select {
+      padding: 0 1em;
+      color: #666666;
+      background: url(../images/down.png) no-repeat #fafafa 94%;
+      background-size: pr(25px) pr(15px);
+    }
+    .btn {
+      font-size: pr(32px);
+      background-color: $active-color;
+      border-radius: pr(44px);
+      color: #fff;
+    }
+  }
+  .test {
+    padding: pr(100px) $padding pr(60px);
+    background: url(../images/bg_1.png) no-repeat center;
+    .t-cont {
+      @extend %flex;
+      width: auto;
+      height: auto;
+    }
+    .c-l,
+    .c-r {
+      float: none;
+      width: 100%;
       box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
       border-radius: pr(10px);
-      &:first-child {
-        margin-bottom: pr(60px);
-      }
     }
     .t-title {
       position: absolute;
@@ -854,127 +1394,795 @@ body {
       left: 0;
       right: 0;
       margin: auto;
-      font-weight: bold;
+
       font-size: pr(32px);
+      font-weight: bold;
       color: #ffffff;
       background-blend-mode: normal, normal;
       box-shadow: 0px pr(10px) pr(30px) 0px rgba(0, 10, 39, 0.1);
       border-radius: pr(10px) pr(10px) 0px 0px;
       text-align: center;
-      width: pr(370px);
-      height: pr(78px);
-      line-height: pr(78px);
       background: url(../images/bg_2.png) no-repeat;
     }
-    li {
-      @extend .space-between;
-      margin-bottom: pr(20px);
-      line-height: pr(48px);
-      .txt {
-        @extend .point;
+    .c-l {
+      margin-bottom: pr(80px);
+      .t-title {
+        width: pr(370px);
+        height: pr(78px);
+        line-height: pr(78px);
       }
-      .btn {
-        height: pr(46px);
-        padding: 0 pr(16px);
-        line-height: pr(46px);
-        font-size: pr(24px);
-        border-radius: pr(24px);
-        background: #fff;
+    }
+    .c-r {
+      .t-title {
+        width: pr(470px);
+        height: pr(78px);
+        line-height: pr(78px);
+        padding-top: 0;
+      }
+      .t-small {
+        padding-top: pr(58px);
+        color: #999999;
+        text-align: center;
+      }
+      .r-row {
+        padding: 0;
+        margin-bottom: pr(30px);
+        p {
+          margin-bottom: pr(25px);
+          font-size: pr(28px);
+          font-weight: bold;
+        }
+        span {
+          padding-left: pr(29px);
+          margin-right: pr(8px);
+          line-height: pr(24px);
+          color: #666666;
+          cursor: pointer;
+          background: url(../images/nor.png) no-repeat left;
+          background-size: pr(20px);
+          &.on {
+            background: url(../images/sel.png) no-repeat left;
+            background-size: pr(20px);
+          }
+        }
+      }
+      .sign-in {
+        padding: $padding $padding pr(10px);
+        select,
+        input {
+          width: 100%;
+        }
+        select {
+          &:nth-of-type(2) {
+            margin-bottom: 0;
+          }
+        }
+        .user-tel,
+        .btn {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .l-detail {
+      padding: pr(70px) pr(36px) pr(20px);
+    }
+    .d-item {
+      @extend %flex;
+      padding: 0;
+      p {
+        margin-bottom: pr(10px);
+        font-size: pr(28px);
+        font-weight: bold;
+      }
+      .i-type {
+        @extend .space-between;
+      }
+      a {
+        float: none;
+        width: pr(140px);
+        height: pr(48px);
+        line-height: pr(48px);
+        margin: 0 0 pr(18px) 0;
+        border-radius: pr(4px);
+        border: solid 1px $active-color;
         color: $active-color;
         &:hover {
+          border: solid 1px $active-color;
           background: $active-color;
           color: #fff;
         }
       }
     }
+    .btn {
+      width: 100%;
+    }
+  }
+  .college {
+    padding: pr(80px) $padding;
+    ul {
+      @extend %flex;
+      @extend .space-between;
+      padding: pr(40px) 0 $padding;
+      margin-right: 0;
+    }
+    li {
+      float: none;
+      width: pr(335px);
+      margin: 0;
+      a {
+        display: block;
+      }
+      img {
+        border-radius: pr(10px);
+      }
+      .name {
+        padding: pr(20px) 0;
+        font-size: pr(32px);
+        line-height: pr(32px);
+        font-weight: bold;
+      }
+    }
+  }
+  .major {
+    padding: pr(70px) $padding 0;
+    background: url(../images/bg_3.png) no-repeat top;
+    background-size: 100% auto;
+    .title {
+      color: #fff;
+    }
+    .subtitle {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .wrap {
+      width: auto;
+    }
+    ul {
+      @extend %flex;
+      @extend .space-between;
+      padding: pr(38px) 0 pr(24px);
+      margin-right: 0;
+    }
+    li {
+      width: pr(335px);
+      height: pr(120px);
+      line-height: pr(120px);
+      margin: 0 0 pr(20px) 0;
+      font-size: pr(32px);
+      a {
+        border-radius: pr(10px);
+        &:hover {
+          width: 100%;
+          height: pr(120px);
+          line-height: pr(120px);
+          border: solid pr(2px) $active-color;
+        }
+      }
+      &.hot {
+        a {
+          color: #fff;
+          background-image: linear-gradient(0deg, #ff2769 0%, #ff5585 100%), linear-gradient(#ff2769, #ff2769);
+          background-blend-mode: normal, normal;
+          box-shadow: 0px 10px 60px 0px rgba(102, 102, 102, 0.1);
+          &::before {
+            display: inline-block;
+            content: "";
+            width: pr(26px);
+            height: pr(31px);
+            margin-right: pr(6px);
+            margin-bottom: pr(-3px);
+            background: url(../images/hot.png) no-repeat left center;
+            background-size: 100% 100%;
+          }
+        }
+      }
+    }
     .sign-in {
-      padding: pr(40px) pr(25px) pr(10px);
+      position: initial;
+      width: auto;
+      height: auto;
+      padding: pr(40px) pr(25px) pr(37px);
       background-color: #ffffff;
       box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
       border-radius: pr(10px);
       input {
-        width: 100%;
+        margin-right: 0;
       }
     }
   }
-}
-.question {
-  padding: pr(40px) $padding 0;
-  .q-cont {
-    padding: $padding;
-    background-color: #ffffff;
-    border-radius: pr(10px);
+  .course {
+    padding: pr(80px) $padding pr(60px);
+    ul {
+      @extend %flex;
+      @extend .space-between;
+      padding-top: pr(40px);
+      margin-right: 0;
+    }
+    li {
+      float: none;
+      width: pr(335px);
+      margin: 0;
+      a {
+        display: block;
+      }
+    }
+    .name {
+      height: pr(62px);
+      line-height: pr(62px);
+      padding-left: pr(13px);
+      margin-bottom: pr(20px);
+      font-weight: bold;
+      font-size: pr(24px);
+      background: #fff;
+    }
   }
-  ul {
-    margin-bottom: pr(20px);
+  .consult {
+    padding: pr(350px) $padding pr(50px);
+    background: url(../images/bg_4.png) no-repeat top;
+    background-size: 100% auto;
+    .wrap {
+      width: auto;
+    }
+    .sign-in {
+      float: none;
+      width: auto;
+      padding: pr(40px) pr(25px) pr(10px);
+      box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+      border-radius: pr(10px);
+      input,
+      select {
+        width: 100%;
+        margin: 0 0 $padding 0;
+      }
+    }
   }
-  li {
-    @extend .point;
-    &::before {
-      margin-right: pr(10px);
+  .article {
+    padding: pr(70px) $padding;
+    .title {
+      margin-bottom: pr(42px);
+      &::after {
+        display: none;
+      }
+    }
+    .a-cont {
+      padding: pr(40px) pr(30px);
+      background-color: #ffffff;
+      border-radius: pr(10px);
+    }
+    ul {
+      @extend %flex;
+      padding: 0;
+      margin-bottom: pr(20px);
+    }
+    li {
+      float: none;
+      width: auto;
+      @extend .space-between;
+      margin-right: 0;
+      font-size: pr(28px);
+      line-height: pr(58px);
+      a {
+        width: 86%;
+        // @extend .point;
+        @extend %one;
+      }
+      .time {
+        float: none;
+        color: #999999;
+      }
+    }
+  }
+  .copyright {
+    height: auto;
+    padding: pr(22px) 0;
+    background-color: #333333;
+    p {
+      line-height: pr(30px);
+      font-size: pr(20px);
+      color: #fff;
+      text-align: center;
+    }
+    .net {
+      display: block;
     }
     a {
+      color: #fff;
+      &:hover {
+        color: $active-color;
+      }
+    }
+  }
+  .page-path {
+    display: none;
+  }
+  // list页面
+  .list {
+    // display: none;
+    .list-l {
+      float: none;
+      width: auto;
+      padding: 0 $padding;
+      li {
+        height: auto;
+        padding: pr(40px) 0;
+        border-bottom: 1px solid #dddddd;
+      }
+      .l-q {
+        margin-bottom: pr(20px);
+        font-size: pr(28px);
+        line-height: pr(34px);
+        &::before {
+          margin-right: pr(10px);
+        }
+      }
+      p {
+        padding: 0;
+        margin-bottom: pr(20px);
+        font-size: pr(24px);
+        text-align: justify;
+        color: #666666;
+      }
+    }
+    .time {
+      font-size: pr(20px);
+      color: #999999;
+    }
+    .list-r {
+      float: none;
+      width: auto;
+      padding-top: 0;
+      .r-apply {
+        width: auto;
+        padding: $padding;
+        margin-bottom: 0;
+        background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#163d8e, #163d8e);
+        background-blend-mode: normal, normal;
+        box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
+        .subtitle {
+          margin-bottom: pr(50px);
+        }
+        .sign-in {
+          padding: pr(36px) pr(25px) pr(10px);
+          background-color: #ffffff;
+          border-radius: pr(10px);
+          select,
+          input {
+            width: 100%;
+          }
+        }
+      }
+      .apply-size {
+        display: none;
+      }
+      .r-gain {
+        padding: pr(40px) $padding pr(40px);
+        ul {
+          @extend %flex;
+          @extend .space-between;
+          padding: pr(20px);
+          margin: 0;
+          background: #fff;
+          border-radius: pr(10px);
+        }
+        li {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
+          width: pr(315px);
+          height: pr(215px);
+          margin: 0 0 pr(20px) 0;
+          font-size: pr(28px);
+          background-color: #f5f5f5;
+          border-radius: pr(10px);
+        }
+        img {
+          height: pr(88px);
+        }
+      }
+    }
+  }
+  /*分页*/
+  .page-wrap {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    display: box;
+    box-orient: horizontal;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    .page {
+      margin: pr(30px) auto;
+      line-height: pr(34px);
+      -webkit-box-pack: center;
+      box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      width: 555px\9\0;
+      *width: 555px;
+      *text-align: center;
+      *margin-top: pr(10px);
+      a {
+        color: #666;
+        display: block;
+        float: left;
+        width: pr(42px);
+        height: pr(42px);
+        line-height: pr(42px);
+        text-align: center;
+        background: #fff;
+        margin-right: pr(10px);
+        border: 1px solid #ddd;
+        border-radius: pr(4px);
+        &.first,
+        &.end {
+          width: pr(62px);
+          background: #eee;
+        }
+        &.next,
+        &.prev {
+          width: pr(90px);
+          background: #eee;
+        }
+        &.cur,
+        &:hover {
+          background: #163d8d;
+          color: #fff;
+          border-color: #163d8d;
+        }
+      }
+      span {
+        display: block;
+        float: left;
+        width: pr(32px);
+        height: pr(32px);
+        line-height: pr(25px);
+        color: #212b4c;
+        margin-left: pr(-10px);
+        &.total {
+          width: auto;
+          line-height: pr(34px);
+          margin-right: pr(10px);
+          color: #666;
+        }
+      }
+    }
+  }
+
+  // 终端页面
+  .noafter {
+    &::after {
+      display: none;
+    }
+  }
+  .upgrade {
+    padding: pr(70px) $padding pr(60px);
+    margin-bottom: 0;
+    .u-cont {
+      @extend .space-between;
+      position: initial;
+      height: auto;
+      margin: 0;
+    }
+    .item {
+      position: initial;
+      width: pr(335px);
+      padding: pr(22px);
+      box-sizing: border-box;
+      margin-bottom: pr(20px);
+      box-shadow: 0px pr(10px) pr(60px) 0px rgba(51, 51, 51, 0.1);
+      border-radius: pr(10px);
+      background-color: #ffffff;
+      .i-title {
+        margin-bottom: pr(10px);
+        font-size: pr(32px);
+        line-height: pr(32px);
+        text-align: left;
+        background: url(../images/up_1.png) no-repeat right;
+        background-size: auto 100%;
+      }
+      p {
+        text-align: justify;
+        color: #666666;
+      }
+      &:nth-of-type(2) {
+        background: #fff;
+        .i-title {
+          background: url(../images/up_2.png) no-repeat right;
+          background-size: auto 100%;
+        }
+      }
+      &:nth-of-type(3) {
+        background: #fff;
+        .i-title {
+          background: url(../images/up_3.png) no-repeat right;
+          background-size: auto 100%;
+        }
+      }
+      &:nth-of-type(4) {
+        background: #fff;
+        .i-title {
+          background: url(../images/up_4.png) no-repeat right;
+          background-size: auto 100%;
+        }
+      }
+    }
+    .c-center {
+      display: none;
+    }
+    .u-edu {
+      padding: pr(40px) pr(25px) pr(10px);
+      box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+      border-radius: pr(10px);
+      .e-title {
+        margin-bottom: pr(40px);
+        font-size: pr(40px);
+        line-height: pr(40px);
+        font-weight: bold;
+        text-align: center;
+      }
+      select,
+      input {
+        width: 100%;
+      }
+      .deepblue-btn {
+        width: 100%;
+        background: $active-color;
+      }
+    }
+  }
+  .use {
+    padding: pr(42px) $padding $padding;
+    background: url(../images/bg_5.png) no-repeat center;
+    .wrap {
+      width: auto;
+      @extend %flex;
+    }
+    ul {
+      @extend .space-between;
+      float: none;
+      width: 100%;
+    }
+    li {
+      width: 50%;
+      padding-left: 0;
+      margin-bottom: pr(10px);
+      line-height: pr(48px);
+      font-size: pr(24px);
+      a {
+        width: pr(112px);
+        height: pr(46px);
+        line-height: pr(46px);
+        margin-right: pr(10px);
+        border-radius: pr(4px);
+        border: solid 1px #fed750;
+        color: #fed750;
+        text-align: center;
+        &:hover {
+          background: #fed750;
+          color: #3257a5;
+        }
+      }
+    }
+  }
+  .scheme {
+    padding: pr(70px) $padding;
+    .s-cont {
+      @extend .space-between;
+      padding: pr(40px) pr(10px) pr(10px);
+    }
+    .item {
+      width: pr(200px);
+      height: pr(200px);
+      padding-top: pr(60px);
+      margin: 0 0 $padding 0;
+      font-size: pr(30px);
+      line-height: pr(36px);
+      &:hover {
+        background-image: linear-gradient(0deg, #3564e4 0%, #507fff 100%), linear-gradient(#e5eeff, #e5eeff);
+        background-blend-mode: normal, normal;
+        box-shadow: 0px pr(10px) pr(40px) 0px rgba(0, 37, 138, 0.1);
+        color: #fff;
+      }
+    }
+  }
+  .noform {
+    padding: pr(70px) $padding pr(40px);
+  }
+  .data {
+    height: auto;
+    padding: pr(230px) $padding pr(40px);
+    background: url(../images/bg_6.png) no-repeat top #163d8d;
+    background-size: 100% auto;
+    .d-l {
+      float: none;
+      width: auto;
+      padding: 0 pr(146px);
+      ul {
+        @extend .space-between;
+      }
+      li {
+        width: 50%;
+        line-height: pr(40px);
+        font-size: pr(24px);
+        text-align: center;
+        &::before {
+          margin-right: pr(10px);
+        }
+      }
+    }
+    .d-r {
+      float: none;
+      width: auto;
+      padding-top: pr(48px);
+      .item {
+        float: none;
+        width: auto;
+        padding: pr(78px) pr(30px) pr(20px);
+        margin-bottom: pr(30px);
+        background-color: #ffffff;
+        box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+        border-radius: pr(10px);
+        &:first-child {
+          margin-bottom: pr(60px);
+        }
+        &:nth-of-type(2) {
+          float: none;
+        }
+      }
+      .t-title {
+        position: absolute;
+        top: pr(-30px);
+        left: 0;
+        right: 0;
+        margin: auto;
+        font-weight: bold;
+        font-size: pr(32px);
+        color: #ffffff;
+        background-blend-mode: normal, normal;
+        box-shadow: 0px pr(10px) pr(30px) 0px rgba(0, 10, 39, 0.1);
+        border-radius: pr(10px) pr(10px) 0px 0px;
+        text-align: center;
+        width: pr(370px);
+        height: pr(78px);
+        line-height: pr(78px);
+        background: url(../images/bg_2.png) no-repeat;
+      }
+      li {
+        @extend .space-between;
+        margin-bottom: pr(20px);
+        line-height: pr(48px);
+        .txt {
+          width: 86%;
+          @extend %one;
+          // @extend .point;
+        }
+        .btn {
+          width: pr(80px);
+          height: pr(46px);
+          line-height: pr(46px);
+          font-size: pr(24px);
+          border-radius: pr(24px);
+          background: #fff;
+          color: $active-color;
+          &:hover {
+            background: $active-color;
+            color: #fff;
+          }
+        }
+      }
+      .sign-in {
+        padding: pr(40px) pr(25px) pr(10px);
+        background-color: #ffffff;
+        box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+        border-radius: pr(10px);
+        input,
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .question {
+    padding: pr(40px) $padding 0;
+    .q-cont {
+      padding: $padding;
+      background-color: #ffffff;
+      border-radius: pr(10px);
+    }
+    ul {
+      @extend %flex;
+      padding: 0;
+      margin-right: 0;
+      margin-bottom: pr(20px);
+    }
+    li {
+      float: none;
+      margin: 0;
+      a {
+        &::before {
+          margin-right: pr(10px);
+        }
+        @extend .point-wap;
+        width: auto;
+        border: 0;
+        font-size: pr(28px);
+        line-height: pr(64px);
+        background-color: #fff;
+        text-align: left;
+      }
+    }
+  }
+  .article2 {
+    padding: 0 $padding;
+    .a-cont {
+      li {
+        width: 100%;
+        padding: 0;
+        line-height: pr(64px);
+        margin: 0 pr(20px) pr(20px) 0;
+        border-radius: pr(10px);
+      }
+    }
+  }
+  .tutorium {
+    padding: pr(40px) pr(30px);
+    background: $active-color;
+    .title {
+      color: #fff;
+      margin-bottom: pr(40px);
+    }
+    .t-cont {
+      padding: pr(32px) pr(28px);
+      line-height: pr(40px);
+      color: #666;
+      background-color: #ffffff;
+      box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
+      border-radius: pr(10px);
+    }
+  }
+  .fixed {
+    position: fixed;
+    bottom: 0;
+    width: pr(750px);
+    height: pr(98px);
+    margin: 0 auto;
+    @extend .space-between;
+    background: $active-color;
+    a {
+      @extend .center;
+      width: 50%;
+      height: 100%;
       font-size: pr(28px);
-      line-height: pr(64px);
+      color: #ffffff;
     }
-  }
-}
-.article2 {
-  padding: 0 $padding;
-}
-.tutorium {
-  padding: pr(40px) pr(30px);
-  background: $active-color;
-  .title {
-    color: #fff;
-    margin-bottom: pr(40px);
-  }
-  .t-cont {
-    padding: pr(32px) pr(28px);
-    line-height: pr(40px);
-    color: #666;
-    background-color: #ffffff;
-    box-shadow: 0px pr(10px) pr(60px) 0px rgba(102, 102, 102, 0.1);
-    border-radius: pr(10px);
-  }
-}
-.fixed {
-  position: fixed;
-  bottom: 0;
-  width: pr(750px);
-  height: pr(98px);
-  margin: 0 auto;
-  @extend .space-between;
-  background: $active-color;
-  a {
-    @extend .center;
-    width: 50%;
-    height: 100%;
-    font-size: pr(28px);
-    color: #ffffff;
-  }
-  i{
-    margin-right: pr(10px);
-  }
-  .online {
     i {
-      width: pr(28px);
-      height: pr(28px);
-      background: url(../images/online.png);
-      background-size: 100% 100%;
+      margin-right: pr(10px);
+    }
+    .online {
+      i {
+        width: pr(28px);
+        height: pr(28px);
+        background: url(../images/online.png);
+        background-size: 100% 100%;
+      }
+    }
+    .tel {
+      background-color: #0072ff;
+      i {
+        width: pr(30px);
+        height: pr(30px);
+        background: url(../images/tel.png);
+        background-size: 100% 100%;
+      }
     }
   }
-  .tel {
-    background-color: #0072ff;
-    i {
-      width: pr(30px);
-      height: pr(30px);
-      background: url(../images/tel.png);
-      background-size: 100% 100%;
-    }
+  .fixed-size {
+    width: 100%;
+    height: pr(98px);
   }
-}
-.fixed-size {
-  width: 100%;
-  height: pr(98px);
+  .side-nav {
+    display: none;
+  }
 }
